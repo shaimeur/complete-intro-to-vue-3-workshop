@@ -9,15 +9,53 @@
   </head>
   <body>
     <h1>Hello Vue3</h1>
-      <div id="app">
-          {{message}}
-      </div>
+     <div id="app">
+         <p v-if="number %2 ==0">Even : {{message }} {{ number}}</p>
+         <p v-else> Odd : {{message}} {{number}}</p>
+
+         <ul>
+          <li v-for="item of items">
+            {{item.id}}
+            <ul>
+              <li v-for="el of item.list">
+                  {{el}}
+              </li>
+            </ul>
+          </li>
+         </ul>
+    </div>
       <script>
         const {createApp} = Vue ;
         const app = createApp({
           data()  {
             return {
-              message : "hello from vue"
+              message : "the number is : ",
+              number : parseInt(Math.random() * 10),
+              items : [
+                 {name : 1 ,
+                  id : "6a62e37c-bc79-4fc0-bffb-5e65c680a1f0",
+                  list : [1,2,3]
+                }
+                ,{
+                  name : 2 ,
+                   id : "05fdc93d-2a3a-4f5f-ae02-99bf9af1239e",
+                   list : [1,2,3]
+                  }
+                ,{
+                  name : 3 ,
+                   id : "3b68b3d4-e109-4720-a522-288224258a87",
+                   list : [1,2,3]
+                  }
+                ,{
+                  name : 4 ,
+                   id : "146a16d3-b1e4-40b1-b9ca-29a02f246f9c",
+                   list : [1,2,3]
+                  }
+                ,{name : 5 ,
+                   id : "f94fcbb3-b1c1-45c7-983d-bf2416f185d9",
+                   list : [1,2,3]
+                  }
+                ]
             }
           }
         }) ;
