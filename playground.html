@@ -5,6 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Playground — Complete Intro to Vue 3</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" ></script>
   </head>
-  <body></body>
+  <body>
+    <h1>Hello Vue3</h1>
+      <div id="app">
+          {{message}}
+      </div>
+      <script>
+        const {createApp} = Vue ;
+
+        createApp({
+          data(){
+            return {
+              message : "Hello Vue3"
+            }
+          }
+        }).mount("#app")
+      </script>
+  </body>
 </html>
