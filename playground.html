@@ -14,14 +14,15 @@
       </div>
       <script>
         const {createApp} = Vue ;
-
-        createApp({
-          data(){
+        const app = createApp({
+          data()  {
             return {
-              message : "Hello Vue3"
+              message : "hello from vue"
             }
           }
-        }).mount("#app")
+        }) ;
+
+        app.mount('#app')
       </script>
   </body>
 </html>
