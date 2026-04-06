@@ -4,7 +4,34 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Pokemon</title>
   </head>
-  <body></body>
+  <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js" ></script>
+
+    <div id="app">
+
+      <ul v-if="characteres.length > 0 ">
+        <li v-for="item in characteres">
+          {{item.name}}
+        </li>
+      </ul>
+
+      <p v-else>They are no characteres</p>
+    </div>
+
+    <script>
+      Vue.createApp({
+        data : ()=>({
+          characteres : [
+          {name : 'pikachu'},
+          {name : 'salamech'},
+          {name : 'bulbizard'},
+          {name : 'carapuce'},
+          ]
+        })
+      }).mount('#app')
+    </script>
+
+  </body>
 </html>
