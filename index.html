@@ -10,7 +10,9 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js" ></script>
 
     <div id="app">
-
+      <p>
+        <span v-for=" (item, index) in characteres"> {{item.name}} {{index !== characteres.length - 1 ? ',' : '' }} </span>
+      </p>
       <ul v-if="characteres.length > 0 ">
         <li v-for="item in characteres">
           {{item.name}}
