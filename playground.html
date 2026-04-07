@@ -10,6 +10,10 @@
   <body>
     <h1>Hello Vue3</h1>
      <div id="app">
+       <h1>Counter</h1>
+         <p>{{count}}</p>
+         <button v-on:click="increment">Increment count</button>
+         <hr>
          <p v-if="number %2 ==0">Even : {{message }} {{ number}}</p>
          <p v-else> Odd : {{message}} {{number}}</p>
 
@@ -23,12 +27,15 @@
             </ul>
           </li>
          </ul>
+         <hr>
+
     </div>
       <script>
         const {createApp} = Vue ;
         const app = createApp({
           data()  {
             return {
+              count : 10 ,
               message : "the number is : ",
               number : parseInt(Math.random() * 10),
               items : [
@@ -55,8 +62,14 @@
                    id : "f94fcbb3-b1c1-45c7-983d-bf2416f185d9",
                    list : [1,2,3]
                   }
-                ]
+                ],
             }
+          },
+          methods:{
+              increment() {
+                this.count++;
+              }
+
           }
         }) ;
 
