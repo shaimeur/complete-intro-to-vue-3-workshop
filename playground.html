@@ -16,8 +16,8 @@
          <div>
            <label for="increment">increment by : </label>
            <input type="number"
-           v-bind:value="incrementAmount"
-           v-on:input="changeIncrementAmount"/>
+           v-model="incrementAmount"
+          />
           </div>
 
          <hr>
@@ -43,7 +43,7 @@
           data()  {
             return {
               count : 10 ,
-              incrementAmount : 9 ,
+              incrementAmount : 3 ,
               message : "the number is : ",
               number : parseInt(Math.random() * 10),
               items : [
@@ -78,7 +78,7 @@
                 this.count += this.incrementAmount;
               },
               changeIncrementAmount(event){
-                  this.incrementAmount= +event.target.value
+                  this.incrementAmount = +event.target.value
               }
           }
         }) ;
