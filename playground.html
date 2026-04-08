@@ -13,6 +13,13 @@
        <h1>Counter</h1>
          <p>{{count}}</p>
          <button v-on:click="increment">Increment count</button>
+         <div>
+           <label for="increment">increment by : </label>
+           <input type="number"
+           v-bind:value="incrementAmount"
+           v-on:input="changeIncrementAmount"/>
+          </div>
+
          <hr>
          <p v-if="number %2 ==0">Even : {{message }} {{ number}}</p>
          <p v-else> Odd : {{message}} {{number}}</p>
@@ -36,6 +43,7 @@
           data()  {
             return {
               count : 10 ,
+              incrementAmount : 9 ,
               message : "the number is : ",
               number : parseInt(Math.random() * 10),
               items : [
@@ -67,9 +75,11 @@
           },
           methods:{
               increment() {
-                this.count++;
+                this.count += this.incrementAmount;
+              },
+              changeIncrementAmount(event){
+                  this.incrementAmount= +event.target.value
               }
-
           }
         }) ;
 
