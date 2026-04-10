@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+Put your HTML text here<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -6,5 +6,64 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
-  <body></body>
+  <body>
+    <div id="app">
+      <div >
+          <ul>
+            <li v-for="item in characterList">
+              <p>
+                {{item.name}}
+              </p>
+                  <button v-on:click="addToFav(item)">Add to 🌟</button>
+            </li>
+          </ul>
+          <hr>
+          <form action="">
+            <label for="name">Charactere Name : </label>
+            <input type="text" name="" id="name" >
+            <button type="submit">Add Charactere</button>
+          </form>
+          <ul>
+            <h1>Favorites List🌟</h1>
+            <li v-for="item in favorites">
+              {{item.name}}
+            </li>
+          </ul>
+      </div>
+    </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+      Vue.createApp({
+        data : ()=>({
+          characterList: [
+            {
+              name: 'Aang'
+            },
+            {
+              name: 'Zuko'
+            },
+            {
+              name: 'Toph'
+            },
+            {
+              name: 'Katara'
+            }
+          ],
+          favorites : [
+
+          ],
+
+        }
+
+      ),
+      methods : {
+        addToFav(item) {
+          console.log(this.favorites)
+           this.favorites.push(item)
+        }
+          }
+      }).mount("#app")
+    </script>
+  </body>
 </html>
