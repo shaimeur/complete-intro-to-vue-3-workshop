@@ -20,8 +20,8 @@ Put your HTML text here<!DOCTYPE html>
           <hr>
           <form action="">
             <label for="name">Charactere Name : </label>
-            <input type="text" name="" id="name" >
-            <button type="submit">Add Charactere</button>
+            <input type="text" name="" id="name" v-model="input" >
+            <button type="button" v-on:click="addToCharactereList">Add Charactere</button>
           </form>
           <ul>
             <h1>Favorites List🌟</h1>
@@ -53,14 +53,20 @@ Put your HTML text here<!DOCTYPE html>
           favorites : [
 
           ],
-
+        input : ''
         }
 
       ),
       methods : {
         addToFav(item) {
-          console.log(this.favorites)
+          // console.log(this.favorites)
            this.favorites.push(item)
+        },
+        addToCharactereList(){
+          if(this.input === '')return
+          const content = this.input
+          this.characterList.push({name : content})
+          this.input = ''
         }
           }
       }).mount("#app")
