@@ -1,75 +1,72 @@
-Put your HTML text here<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <div id="app">
-      <div >
-          <ul>
-            <li v-for="item in characterList">
-              <p>
-                {{item.name}}
-              </p>
-                  <button v-on:click="addToFav(item)">Add to 🌟</button>
-            </li>
-          </ul>
-          <hr>
-          <form action="">
-            <label for="name">Charactere Name : </label>
-            <input type="text" name="" id="name" v-model="input" >
-            <button type="button" v-on:click="addToCharactereList">Add Charactere</button>
-          </form>
-          <ul>
-            <h1>Favorites List🌟</h1>
-            <li v-for="item in favorites">
-              {{item.name}}
-            </li>
-          </ul>
-      </div>
-    </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
 
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script>
-      Vue.createApp({
-        data : ()=>({
-          characterList: [
-            {
-              name: 'Aang'
-            },
-            {
-              name: 'Zuko'
-            },
-            {
-              name: 'Toph'
-            },
-            {
-              name: 'Katara'
-            }
-          ],
-          favorites : [
 
-          ],
-        input : ''
+      class Context {
+        constructor(...components){
+          this.components = components;
+        }
+        mount(){
+          const root = document.getElementById('root');
+          for(const component of this.components)
+            root.appendChild(component)
+        }
+      }
+
+      class Component {
+        constructor(html,state){
+          this.html = html;
+          this.renderComponent(state);
         }
 
-      ),
-      methods : {
-        addToFav(item) {
-          // console.log(this.favorites)
-           this.favorites.push(item)
-        },
-        addToCharactereList(){
-          if(this.input === '')return
-          const content = this.input
-          this.characterList.push({name : content})
-          this.input = ''
+        renderComponent(state){
+          this.element = document.createElement('div');
+          console.log(state)
+          this.element.innerHTML =  state?.data ? this.html.replace('{ state }', state.data) : this.html;
         }
-          }
-      }).mount("#app")
-    </script>
-  </body>
+      }
+
+
+      class State {
+
+        constructor(data){
+          this.setState(data);
+        }
+
+        setState(data){
+          // update virtual dom
+          this.data = data;
+          this.render();
+        }
+
+        render(){
+          console.log('update real dom');
+        }
+
+      }
+
+
+
+      // initialiser le context
+
+      const state = new State('Onarchy');
+
+      const component = new Component('<h1>{ state } Hello</h1>', state);
+
+      const app = new Context(component.element);
+
+
+      app.mount();
+
+
+  </script>
+</body>
 </html>
