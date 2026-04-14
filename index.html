@@ -1,41 +1,49 @@
-Put your HTML text here<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Avatar: The Last Airbender</title>
   </head>
   <body>
     <div id="app">
-      <div >
-          <ul>
-            <li v-for="item in characterList">
-              <p>
-                {{item.name}}
-              </p>
-                  <button v-on:click="addToFav(item)">Add to 🌟</button>
-            </li>
-          </ul>
-          <hr>
-          <form action="">
-            <label for="name">Charactere Name : </label>
-            <input type="text" name="" id="name" v-model="input" >
-            <button type="button" v-on:click="addToCharactereList">Add Charactere</button>
-          </form>
-          <ul>
-            <h1>Favorites List🌟</h1>
-            <li v-for="item in favorites">
-              {{item.name}}
-            </li>
-          </ul>
-      </div>
+      <p v-if="characterList.length === 0">There are no characters</p>
+      <ul v-else-if="characterList.length % 2 === 0">
+        <li v-for="character in characterList">
+          <p>{{ character.name }}</p>
+          <button @click="favoriteCharacter(character)">⭐ Favorite</button>
+        </li>
+      </ul>
+      <h2>Favorite Characters</h2>
+      <ul v-if="favoriteList.length > 0">
+        <li v-for="character in favoriteList">{{ character }}</li>
+      </ul>
+      <p v-else>No favorite characters yet!</p>
+      <h2>New Character</h2>
+      <pre>{{ newCharacter }}</pre>
+      <label for="character-name">Name</label>
+      <input
+        type="text"
+        v-model="newCharacter.name"
+        @keyup.enter="addNewCharacter"
+      />
+      <p>
+        <span v-for="(character, index) in characterList"
+          >{{ character.name }}{{ index === characterList.length - 1 ? '' : ', '
+          }}
+        </span>
+      </p>
+      <p v-else>There are odd characters!</p>
     </div>
 
-  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
       Vue.createApp({
-        data : ()=>({
+        data: () => ({
+          newCharacter: {
+            name: ''
+          },
           characterList: [
             {
               name: 'Aang'
@@ -50,26 +58,18 @@ Put your HTML text here<!DOCTYPE html>
               name: 'Katara'
             }
           ],
-          favorites : [
-
-          ],
-        input : ''
-        }
-
-      ),
-      methods : {
-        addToFav(item) {
-          // console.log(this.favorites)
-           this.favorites.push(item)
-        },
-        addToCharactereList(){
-          if(this.input === '')return
-          const content = this.input
-          this.characterList.push({name : content})
-          this.input = ''
-        }
+          favoriteList: []
+        }),
+        methods: {
+          addNewCharacter() {
+            this.characterList.push(this.newCharacter)
+            this.newCharacter = { name: '' }
+          },
+          favoriteCharacter(character) {
+            this.favoriteList.push(character)
           }
-      }).mount("#app")
+        }
+      }).mount('#app')
     </script>
   </body>
 </html>
