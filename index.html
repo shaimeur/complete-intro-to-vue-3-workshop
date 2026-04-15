@@ -8,6 +8,8 @@
   </head>
   <body>
     <div id="app">
+      <h1>{{regulatedTitle}}</h1>
+      <h1 v-on:click="increment">{{count}}</h1>
       <p v-if="characterList.length === 0">There are no characters</p>
       <ul v-else-if="characterList.length % 2 === 0">
         <li v-for="character in characterList">
@@ -41,6 +43,8 @@
     <script>
       Vue.createApp({
         data: () => ({
+          title : 'Avatar',
+          count : 0 ,
           newCharacter: {
             name: ''
           },
@@ -67,7 +71,15 @@
           },
           favoriteCharacter(character) {
             this.favoriteList.push(character)
+          },
+          increment(){
+             this.count = this.count + 1
           }
+        },
+        computed : {
+            regulatedTitle(){
+              return  this.count > 10 ? "One Piece !!" : this.title
+            }
         }
       }).mount('#app')
     </script>
