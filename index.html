@@ -8,18 +8,31 @@
   </head>
   <body>
     <div id="app">
+      <h2>Statistics</h2>
+
+      <ul>
+        <li v-for="(value, key) in rateType">
+              {{`${key} : ${value}`}}
+        </li>
+      </ul>
+      <h2>Characters</h2>
       <h1>{{regulatedTitle}}</h1>
       <h1 v-on:click="increment">{{count}}</h1>
       <p v-if="characterList.length === 0">There are no characters</p>
       <ul v-else-if="characterList.length % 2 === 0">
         <li v-for="character in characterList">
           <p>{{ character.name }}</p>
+          <p>{{ character.type }}</p>
+          <div>
+            <input v-model="typeInputs[character.name]" type="text" :name="character.name" :id="character.name">
+            <button :name="character.name" v-on:click="addType">AddType</button>
+          </div>
           <button @click="favoriteCharacter(character)">⭐ Favorite</button>
         </li>
       </ul>
       <h2>Favorite Characters</h2>
       <ul v-if="favoriteList.length > 0">
-        <li v-for="character in favoriteList">{{ character }}</li>
+        <li v-for="character in favoriteList">{{ character.name }} </li>
       </ul>
       <p v-else>No favorite characters yet!</p>
       <h2>New Character</h2>
@@ -46,20 +59,26 @@
           title : 'Avatar',
           count : 0 ,
           newCharacter: {
-            name: ''
+            name: '',
+            type : []
           },
+          rate: {},
+          typeInputs : {} ,
           characterList: [
             {
-              name: 'Aang'
+              name: 'Aang',
+              type : ["Air", "Water", "Earth", "Fire"]
             },
             {
-              name: 'Zuko'
+              name: 'Zuko',
+              type : ["Fire"]},
+            {
+              name: 'Toph',
+              type : ["Water"]
             },
             {
-              name: 'Toph'
-            },
-            {
-              name: 'Katara'
+              name: 'Katara',
+              type : ["Earth"]
             }
           ],
           favoriteList: []
@@ -74,11 +93,29 @@
           },
           increment(){
              this.count = this.count + 1
+          },
+          addType(e){
+              console.log(e.target.name, this.typeInputs[e.target.name])
           }
         },
         computed : {
             regulatedTitle(){
               return  this.count > 10 ? "One Piece !!" : this.title
+            },
+            rateType(){
+               let  types = []
+               for(const item of this.characterList){
+                    types.push(...item.type)
+               }
+               const rate = {}
+                for(let i = 0 ; i < types.length ; i++){
+                    if(!rate[types[i]]){
+                      rate[types[i]] = 1
+                    }else{
+                      rate[types[i]]++
+                    }
+                }
+                return rate
             }
         }
       }).mount('#app')
